@@ -248,6 +248,45 @@
                     </div>
                 </div>
             </div>
+
+            <div class="cities-section">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="section-heading">Paris</h2>
+                        <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    </div>
+                </div>
+                <div class="btn-group cities-filter" role="group" id="parisfilter"></div>
+                <div class="cities-maps"></div>
+                <div class="row legends">
+                    <div class="map-legend col-md-4"></div>
+                    <div class="sat-legend col-md-4"></div>
+                    <div class="text-muted text-right legend-des col-md-4">
+                        <p class="tight-p no-margin-bottom"> Hue: Camera makers<br>Saturation: Photos per bin </p>
+                        <p class="attribution tight-p"></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cities-section">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="section-heading">Hong Kong</h2>
+                        <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    </div>
+                </div>
+                <div class="btn-group cities-filter" role="group" id="hkfilter"></div>
+                <div class="cities-maps"></div>
+                <div class="row legends">
+                    <div class="map-legend col-md-4"></div>
+                    <div class="sat-legend col-md-4"></div>
+                    <div class="text-muted text-right legend-des col-md-4">
+                        <p class="tight-p no-margin-bottom"> Hue: Camera makers<br>Saturation: Photos per bin </p>
+                        <p class="attribution tight-p"></p>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
@@ -402,7 +441,9 @@
 
         var cities = [
         	{"name": "sanfrancisco", "center": [-122.421356, 37.785839], "file": "data/sf.csv"},
-        	{"name": "newyork", "center": [-73.993952, 40.734331], "file": "data/ny.csv"}
+        	{"name": "newyork", "center": [-73.993952, 40.734331], "file": "data/ny.csv"},
+            {"name": "paris", "center": [2.338771, 48.859758], "file": "data/paris.csv"},
+            {"name": "hongkong", "center": [114.172982, 22.301452], "file": "data/hk.csv"}
         ];        
 
         // Select 5 camera makers
@@ -597,8 +638,8 @@
 			                    .attr("class", "img-responsive img-rounded tooltip-image");
 			                hover_tip.append("p")
                                 .attr("class", "tight-p")
-			                    .html(cur_photo.title.slice(0,15) + " by: " + cur_photo.user.slice(0,15) +                                    
-                                    "<br><em>(Click to get source and regenerate)</em>"
+			                    .html(decodeURIComponent(cur_photo.title).slice(0,15) + " by: " + decodeURIComponent(cur_photo.user).slice(0,15) +
+                                    "<br><small><em>(Click to get source and regenerate)</em></small>"
                                     );
 		                    
 		                    var camera_ref = camera_makers.map( function(k) { 
@@ -675,21 +716,20 @@
                             hover_tip = d3.select(".maptips");
                             var last_photo = d[d.url_index];
                             var page = "http://www.flickr.com/photos/" + last_photo.nsid + "/" + last_photo.identifier;
-                            var cc_url = "http://creativecommons.org/licenses/" + last_photo.license + "/" + last_photo.cc_vers;
+                            var cc_url = "http://creativecommons.org/licenses/" + last_photo.license + "/2.0/";
 
                             d3.select(this.parentNode.parentNode.parentNode.parentNode)
                                 .select(".legend-des").select(".attribution")
-                                .html("<a href='" + page + "'>Last Photo</a> By: " + last_photo.user.slice(0,15) +
-                                    " (<a href='" + cc_url + "'>CC " +  last_photo.license.toUpperCase() + " " + last_photo.cc_vers + "</a>" +
-                                    ")");
+                                .html("<a href='" + page + "'>Last Photo</a> By: " + decodeURIComponent(last_photo.user).slice(0,15) +
+                                    " (<a href='" + cc_url + "'>CC " +  last_photo.license.toUpperCase() + " 2.0</a>)");
 
                             d.url_index = getRandomIntInclusive(0, d.length-1);
                             var cur_photo = d[d.url_index];                            
                             hover_tip.select("img")
                                 .attr("src", cur_photo.url);
                             hover_tip.select("p")
-                                .html(cur_photo.title.slice(0,15) + " by: " + cur_photo.user.slice(0,15) +                                    
-                                    "<br><em>(Click to get source and regenerate)</em>");
+                                .html(decodeURIComponent(cur_photo.title).slice(0,15) + " by: " + decodeURIComponent(cur_photo.user).slice(0,15) +
+                                    "<br><small><em>(Click to get source and regenerate)</em></small>");
                         };
 		           	}; //mapviz
 		        }; //ready
