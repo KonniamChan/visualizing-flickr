@@ -83,8 +83,12 @@
             max-height: 300px;
         }
 
-        .tooltip-p {
-            line-height: 1.2;
+        .tight-p {
+            line-height: 1.2;            
+        }
+
+        .no-margin-bottom {
+            margin-bottom: 0;
         }
 
         .legends {
@@ -220,8 +224,8 @@
                     <div class="map-legend col-md-4"></div>
                     <div class="sat-legend col-md-4"></div>
                     <div class="text-muted text-right legend-des col-md-4">
-                        <p> Hue: Camera makers<br>Saturation: Photos per bin </p>
-                        <p class="attribution"></p>
+                        <p class="tight-p no-margin-bottom"> Hue: Camera makers<br>Saturation: Photos per bin </p>
+                        <p class="attribution tight-p"></p>
                     </div>
                 </div>
             </div>
@@ -238,7 +242,10 @@
                 <div class="row legends">
                     <div class="map-legend col-md-4"></div>
                     <div class="sat-legend col-md-4"></div>
-                    <div class="attribution text-muted text-right legend-des col-md-4">Hue: Camera makers<br>Saturation: Photos per bin</div>
+                    <div class="text-muted text-right legend-des col-md-4">
+                        <p class="tight-p no-margin-bottom"> Hue: Camera makers<br>Saturation: Photos per bin </p>
+                        <p class="attribution tight-p"></p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -441,7 +448,7 @@
 			                        .attr("class", function(d) { return d.properties.kind; })
 			                        .attr("d", path);
 		                	});
-		            });                
+		            });
 
                 var hex_g = svg.append("g").attr("class", "hexagons");                
 		        var filter_selection = d3.select(this.parentNode.parentNode)
@@ -522,7 +529,7 @@
 			                };
 			            });
 
-			            // Remove bins with less than minimum number of photos
+			            // Remove bins with fewer than minimum number of photos
 			            var min_photos = 10;
 			            hex_flickr = hex_flickr.filter( function(d) { return d.max_photos>=10; } );
 
@@ -561,7 +568,7 @@
                             .attr("x", 0)
                             .attr("y", 20)                            
                             .html("View: " + filter.label)
-                            .style("opacity", 0.3);
+                            .style("opacity", 0.5);
 
 			            // Tooltips
 			            svg.select(".hexagons").selectAll("path")
@@ -570,10 +577,8 @@
                             .on("click", new_tooltip);
 
 			            function create_tooltip(d) {
-			                var url_index = getRandomIntInclusive(0, d.length-1);
-                            var cur_photo = d[url_index];
-                            // var page = "http://www.flickr.com/photos/" + cur_photo.nsid + "/" + cur_photo.identifier;
-                            // var cc_url = "http://creativecommons.org/licenses/" + cur_photo.license + "/" + cur_photo.version;
+			                d.url_index = getRandomIntInclusive(0, d.length-1);
+                            var cur_photo = d[d.url_index];
 
 			                d3.select(this).style("stroke", "#FDB515")
 			                	.style("stroke-width", "3px");
@@ -591,9 +596,10 @@
 			                    .attr("src", cur_photo.url)
 			                    .attr("class", "img-responsive img-rounded tooltip-image");
 			                hover_tip.append("p")
-                                .attr("class", "tooltip-p")
-			                    .html(cur_photo.title.slice(0,15) + " by: " + cur_photo.user.slice(0,15) + 
-                                    "<br>(CC " + cur_photo.license.toUpperCase() + " " + cur_photo.version + ")");
+                                .attr("class", "tight-p")
+			                    .html(cur_photo.title.slice(0,15) + " by: " + cur_photo.user.slice(0,15) +                                    
+                                    "<br><em>(Click to get source and regenerate)</em>"
+                                    );
 		                    
 		                    var camera_ref = camera_makers.map( function(k) { 
 		                        var rObj = {};
@@ -602,24 +608,59 @@
 		                        return rObj;
 		                        });                    
 
-		                    var table_row = hover_tip.append("table")
-		                        .attr("class", "table")
-		                        .selectAll("tr")
-		                        .data(camera_ref)
-		                        .enter()
-		                        .append("tr");
+                            // Barchart
+                            var width_barsvg = 250;
+                            var height_barsvg = 125;
+                            var bar_padding = 5;
+                            var text_padding = 30;
 
-		                    table_row.append("td")                        
-		                        .html(function(e){ return e.camera; });
+                            var bar_length_scale = d3.scale.linear()
+                                            .domain([0, d.max_photos])
+                                            .range([0, 3/4*width_barsvg - bar_padding - text_padding]);
 
-		                    table_row.append("td")                        
-		                        .html(function(e){ return Math.round(e.count/d.length*100) + "% " + "(" + e.count + ")"; });
+                            var bar_position_scale = d3.scale.ordinal()
+                                                    .domain(d3.range(camera_ref.length))
+                                                    .rangeBands([bar_padding, height_barsvg], 0.2);
 
-                            // d3.select(this.parentNode.parentNode.parentNode.parentNode)
-                            //     .select(".legend-des").select(".attribution")
-                            //     .html("Last " + "<a href='" + page + "'>Photo</a> By: " + cur_photo.user.slice(0,15) +
-                            //         "(<a href='" + cc_url + "'>CC " +  cur_photo.license.toUpperCase() + " " + cur_photo.version + "</a>" +
-                            //         ")");
+                            hover_tip.append("svg")
+                                .attr("width", width_barsvg)
+                                .attr("height", height_barsvg)
+                                .selectAll("rect")
+                                .data(camera_ref).enter()
+                                .append("rect")
+                                .attr("x", 1/4*width_barsvg)
+                                .attr("y", function (e,i) { return bar_position_scale(i); } )
+                                .attr("height", height_barsvg/camera_ref.length - 10)
+                                .attr("fill", function (e) { return color_brands(e.camera); } )
+                                .attr("width", 0)
+                                .transition().duration(500)
+                                .delay(function (d,i) { return 300 * i / camera_ref.length})
+                                .attr("width", function (e) { return bar_length_scale(e.count); } );
+
+                            hover_tip.select("svg")
+                                .append("g")                                
+                                .selectAll("text")
+                                .data(camera_ref).enter()
+                                .append("text")
+                                .attr("x", bar_padding)
+                                .attr("y", function (e,i) { return bar_position_scale(i); })
+                                .attr("dominant-baseline", "hanging")
+                                .text(function (e) { return e.camera.slice(0,5); })
+
+                            hover_tip.select("svg")
+                                .append("g")
+                                .selectAll("text")
+                                .data(camera_ref).enter()
+                                .append("text")
+                                .attr("y", function (e,i) { return bar_position_scale(i); })
+                                .attr("dominant-baseline", "hanging")
+                                .attr("text-anchor", "start")
+                                .text(function (e) { return e.count; })
+                                .attr("fill", "#808080")
+                                .attr("x", 0)
+                                .transition().duration(500)
+                                .delay(function (d,i) { return 300 * i / camera_ref.length})
+                                .attr("x", function (e) { return 1/4*width_barsvg + bar_length_scale(e.count) + 2; });
 			            };
 
 			            function delete_tooltip(d) {
@@ -630,23 +671,25 @@
 			                d3.select(".maptips").remove();
 			            };
 
-                        function new_tooltip(d) {                       
-                            var url_index = getRandomIntInclusive(0, d.length-1);
-                            var cur_photo = d[url_index];
-                            // var page = "http://www.flickr.com/photos/" + cur_photo.nsid + "/" + cur_photo.identifier;
-                            // var cc_url = "http://creativecommons.org/licenses/" + cur_photo.license + "/" + cur_photo.version;
-                            hover_tip = d3.select(".maptips");                            
+                        function new_tooltip(d) {
+                            hover_tip = d3.select(".maptips");
+                            var last_photo = d[d.url_index];
+                            var page = "http://www.flickr.com/photos/" + last_photo.nsid + "/" + last_photo.identifier;
+                            var cc_url = "http://creativecommons.org/licenses/" + last_photo.license + "/" + last_photo.cc_vers;
+
+                            d3.select(this.parentNode.parentNode.parentNode.parentNode)
+                                .select(".legend-des").select(".attribution")
+                                .html("<a href='" + page + "'>Last Photo</a> By: " + last_photo.user.slice(0,15) +
+                                    " (<a href='" + cc_url + "'>CC " +  last_photo.license.toUpperCase() + " " + last_photo.cc_vers + "</a>" +
+                                    ")");
+
+                            d.url_index = getRandomIntInclusive(0, d.length-1);
+                            var cur_photo = d[d.url_index];                            
                             hover_tip.select("img")
                                 .attr("src", cur_photo.url);
                             hover_tip.select("p")
-                                .html(cur_photo.title.slice(0,15) + " by: " + cur_photo.user.slice(0,15) + 
-                                    "<br>(CC " + cur_photo.license.toUpperCase() + " " + cur_photo.version + ")");
-
-                            // d3.select(this.parentNode.parentNode.parentNode.parentNode)
-                            //     .select(".legend-des").select(".attribution")
-                            //     .html("Last " + "<a href='" + page + "'>Photo</a> By: " + cur_photo.user.slice(0,15) +
-                            //         "(<a href='" + cc_url + "'>CC " +  cur_photo.license.toUpperCase() + " " + cur_photo.version + "</a>" +
-                            //         ")");
+                                .html(cur_photo.title.slice(0,15) + " by: " + cur_photo.user.slice(0,15) +                                    
+                                    "<br><em>(Click to get source and regenerate)</em>");
                         };
 		           	}; //mapviz
 		        }; //ready
