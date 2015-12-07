@@ -657,7 +657,7 @@
                                 .attr("text-anchor", "start")
                                 .text(function (e) { return e.count; })
                                 .attr("fill", "#808080")
-                                .attr("x", 0)
+                                .attr("x", 1/4*width_barsvg)
                                 .transition().duration(500)
                                 .delay(function (d,i) { return 300 * i / camera_ref.length})
                                 .attr("x", function (e) { return 1/4*width_barsvg + bar_length_scale(e.count) + 2; });
