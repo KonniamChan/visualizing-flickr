@@ -129,7 +129,7 @@
                         <a class="page-scroll" href="#data">Data</a>
                     </li>
                     <li>
-                        <a class="page-scroll" href="#rank">Rank</a>
+                        <a class="page-scroll" href="#market">Market</a>
                     </li>
                     <li>
                         <a class="page-scroll" href="#cities">Cities</a>
@@ -196,14 +196,31 @@
     </section>
 
 
-    <!-- Rank Section -->
-    <section id="rank">
+    <!-- Market Section -->
+    <section id="market">
         <div class="container">
             <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Rank</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-                </div>                                                
+                    <div class="col-lg-12 text-center">
+                        <h2 class="section-heading">Market Share</h2>
+                        <p class="text-muted">The following map shows the marketshare of the most popular camera makers in major US cities in each year for which the dataset contains enough data. Flip through the years to see changes over time in each city. The time series plot below shows the marketshare of each popular camera maker in the continental US between 2004 and 2014.</p>
+                    </div>
+            </div>
+            <div class='tableauPlaceholder' style='width: 1004px; height: 869px;'>
+                <noscript><a href='#'><img alt='Dashboard 1 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Vi&#47;VisualizingFlickr_Marketshares&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript>
+                <object class='tableauViz' width='1004' height='869' style='display:none;'>
+                    <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' /> 
+                    <param name='site_root' value='' />
+                    <param name='name' value='VisualizingFlickr_Marketshares&#47;Dashboard1' /><param name='tabs' value='no' />
+                    <param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Vi&#47;VisualizingFlickr_Marketshares&#47;Dashboard1&#47;1.png' /> 
+                    <param name='animate_transition' value='yes' />
+                    <param name='display_static_image' value='yes' />
+                    <param name='display_spinner' value='yes' />
+                    <param name='display_overlay' value='yes' />
+                    <param name='display_count' value='yes' />
+                    <param name='showVizHome' value='no' />
+                    <param name='showTabs' value='y' />
+                    <param name='bootstrapWhenNotified' value='true' />
+                </object>
             </div>
         </div>
     </section>
@@ -420,6 +437,9 @@
     <script src="js/d3.hexbin.min.js"></script>
     <script src="js/d3.geo.tile.min.js"></script>
 
+    <!-- Tableau JS -->
+    <script type='text/javascript' src='https://public.tableau.com/javascripts/api/viz_v1.js'></script>
+
     <!-- D3 Script -->
     <script>        
         var height = Math.max(700, 0.6*window.innerHeight);
@@ -607,9 +627,10 @@
                         svg.select("text").remove();
                         svg.append("text")                                                        
                             .attr("x", 0)
-                            .attr("y", 20)                            
+                            .attr("y", 20)
+                            .attr("fill", "#202060")
                             .html("View: " + filter.label)
-                            .style("opacity", 0.5);
+                            .style("opacity", 0.7);
 
 			            // Tooltips
 			            svg.select(".hexagons").selectAll("path")
