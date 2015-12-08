@@ -160,7 +160,7 @@
                     </li>
                     <li>
                         <a class="page-scroll" href="#wordcloud">Words</a>
-                    </li>                                        
+                    </li>
                     <li>
                         <a class="page-scroll" href="#team">Team</a>
                     </li>
@@ -190,7 +190,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Data</h2>                    
+                    <h2 class="section-heading">Data</h2>
                 </div>
             </div>
             <div class="row text-center">
@@ -336,14 +336,33 @@
 
     <!-- Word Cloud Section -->
     <section id="wordcloud">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Word Cloud</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
-                </div>                                                
+      <div class="container">
+        <div class="cities-tags-section">
+          <div class="row">
+            <div class="col-lg-12 text-center">
+              <h2 class="section-heading">San Francisco Tags</h2>
+              <p class="text-muted">San Francisco's user photo tags highlight locations (e.g. "market", "street", "golden", "gate", "bridge") as well as the lifestyle ("bar", "park", "protest", "gay"), suggesting that people in this city take pictures of tourist attractions as well as of social events that are culturally associated with San Francisco.</p>
             </div>
+          </div>
+          <div class="btn-group cities-filter" role="group" id="sffilter"></div>
+          <div class="cities-tags"></div>
         </div>
+      </div>
+    </section>
+
+    <section id="wordcloud">
+    <div class="container">
+      <div class="cities-tags-section">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading">New York Tags</h2>
+            <p class="text-muted">In New York, photos have tags that mention various boroughs (e.g. "Manhattan", "Brooklyn") as well as the various locations where people visiting the city would tend to take photos (e.g. "art", "museum", "park").</p>
+          </div>
+        </div>
+        <div class="btn-group cities-filter" role="group" id="nyfilter"></div>
+        <div class="cities-tags"></div>
+      </div>
+    </div>
     </section>
 
     <!-- Team Section -->
@@ -388,15 +407,15 @@
                 </div>
                 <div class="col-sm-4">
                     <div class="team-member">
-                        <img src="img/team/3.jpg" class="img-responsive img-circle" alt="">
-                        <h4>Diana Pertersen</h4>
-                        <p class="text-muted">Lead Developer</p>
+                        <img src="img/team/samkabue.jpg" class="img-responsive img-circle" alt="">
+                        <h4>Samuel Kabue</h4>
+                        <p class="text-muted">MIDS Student</p>
                         <ul class="list-inline social-buttons">
-                            <li><a href="#"><i class="fa fa-twitter"></i></a>
+                            <li><a href="https://github.com/samkabue"><i class="fa fa-github"></i></a>
                             </li>
-                            <li><a href="#"><i class="fa fa-facebook"></i></a>
+                            <li><a href="https://twitter.com/samkabue"><i class="fa fa-twitter"></i></a>
                             </li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                            <li><a href="https://www.linkedin.com/in/samkabue"><i class="fa fa-linkedin"></i></a>
                             </li>
                         </ul>
                     </div>
@@ -496,16 +515,17 @@
     <script src="js/d3-legend.min.js"></script>
     <script src="js/d3.hexbin.min.js"></script>
     <script src="js/d3.geo.tile.min.js"></script>
+    <script src="js/d3.layout.cloud.js"></script>
 
     <!-- Tableau JS -->
     <script type='text/javascript' src='https://public.tableau.com/javascripts/api/viz_v1.js'></script>
 
     <!-- D3 Script -->
-    <script>        
+    <script>
         var height = Math.max(700, 0.6*window.innerHeight);
 
-        if (window.innerWidth<960) {var width = 960;} 
-        else if (window.innerWidth>1200) {var width = 1200;} 
+        if (window.innerWidth<960) {var width = 960;}
+        else if (window.innerWidth>1200) {var width = 1200;}
         else {var width = 0.8*window.innerWidth;}
 
         function getRandomIntInclusive(min, max) {
@@ -513,7 +533,7 @@
         };
 
         var tiler = d3.geo.tile()
-            .size([width, height]);        
+            .size([width, height]);
 
         var hexbin = d3.hexbin()
             .size([width, height])
@@ -524,7 +544,7 @@
         	{"name": "newyork", "center": [-73.993952, 40.734331], "file": "data/ny.csv"},
             {"name": "paris", "center": [2.338771, 48.859758], "file": "data/paris.csv"},
             {"name": "hongkong", "center": [114.172982, 22.301452], "file": "data/hk.csv"}
-        ];        
+            ];        
 
         // Select 5 camera makers
         var camera_makers = ["CANON", "NIKON", "APPLE", "SONY", "PANASONIC"];
@@ -534,12 +554,12 @@
 
         var color_scale = d3.scale.pow()
             .exponent(0.333)
-            .interpolate(d3.interpolateHsl);       
+            .interpolate(d3.interpolateHsl);
 
         // Use D3 to create svg maps
 	    d3.selectAll(".cities-maps")
 	    	.data(cities)
-	    	.append("svg")	    	
+	    	.append("svg")
 	    	.attr("width", width)
 	    	.attr("height", height)
 	    	.attr("id", function (city) { return city.name; } )
@@ -559,8 +579,8 @@
 		                .translate(projection([0, 0])))
 		            .enter().append("g")
 		            .each(function(d) {
-		                var g = d3.select(this);                
-		                d3.json("http://vector.mapzen.com/osm/roads/" + d[2] + "/" + d[0] + "/" + d[1] + ".topojson?api_key=vector-tiles-6A2EEiQ", 
+		                var g = d3.select(this);
+		                d3.json("http://vector.mapzen.com/osm/roads/" + d[2] + "/" + d[0] + "/" + d[1] + ".topojson?api_key=vector-tiles-6A2EEiQ",
 		                	function(error, json) {
 			                    var geojson_data = topojson.feature(json, json.objects.vectile);
 			                    g.selectAll("path")
@@ -571,15 +591,15 @@
 		                	});
 		            });
 
-                var hex_g = svg.append("g").attr("class", "hexagons");                
+                var hex_g = svg.append("g").attr("class", "hexagons");
 		        var filter_selection = d3.select(this.parentNode.parentNode)
 		        	.select(".cities-filter");
-				    
+
 
 		        // Hexbins
 		        queue()
             		.defer(d3.csv, city.file)
-            		.await(ready);            	
+            		.await(ready);
 		        function ready(error, flickr) {
 		            if (error) throw error;
                     var filter_cats = [
@@ -588,7 +608,7 @@
                     {"low":2012, "high":3000, "label":"2012&mdash;"},
                     {"low":1000, "high":3000, "label":"ALL"}
                     ];
-		            
+
 		            filter_selection.append("button")
 		            	.attr("class", "btn btn-default").attr("type", "button")
 		           	    .on("click", function(){ map_viz(flickr, filter_cats[0]); })
@@ -611,16 +631,16 @@
 
 		        	// Call map function
 		           	map_viz(flickr, filter_cats[3]);
-		           	function map_viz(flickr, filter) {		           		
+		           	function map_viz(flickr, filter) {
 		           		// Project long/lat into pixel coordinates
-			            flickr.forEach(function(d) {            	
+			            flickr.forEach(function(d) {
 			                var p = projection([d.longitude, d.latitude]);
 			                d[0] = p[0];
 			                d[1] = p[1];
 			                d.year = parseInt(d.year);
 			            });
 
-			            // Filter	            
+			            // Filter
 			            var flickr_filtered = flickr.filter(function(d) { return d.year>=filter.low & d.year<=filter.high; });
 
 			            // Create hexbins
@@ -634,8 +654,8 @@
 			                hex.max_photos = 0;
 			                hex.forEach(function(d) {
 			                    if (d.camera in hex.camera_counts) {
-			                        hex.camera_counts[d.camera] += 1;   
-			                    };          
+			                        hex.camera_counts[d.camera] += 1;
+			                    };
 			                });
 			                for (var key in hex.camera_counts){
 			                    if (hex.camera_counts[key] > hex.max_photos) {
@@ -646,7 +666,7 @@
 			                        global_max = hex.max_photos;
 			                        };
 			                    };
-			                    
+
 			                };
 			            });
 
@@ -659,15 +679,15 @@
 
 			            // Draw hexagons
                         var hexagons = hex_g.selectAll("path").data(hex_flickr);
-                        hexagons                            
+                        hexagons
                             .exit()
                             .transition().duration(400)
                             .attr("transform", "translate(" + width + "," + height + ")")
                             .remove();
 
                         hexagons.enter()
-                            .append("path")                            
-                            .attr("d", hexbin.hexagon())                            
+                            .append("path")
+                            .attr("d", hexbin.hexagon())
                             .attr("transform", function(d) {return "translate(" + d.x + "," + d.y + ")";})
                             .style("fill", function(d) {
                                 color_scale.range(["white", color_brands(d.max_camera)]);
@@ -677,15 +697,15 @@
 
                         hexagons
                             .transition().duration(200)
-                            .attr("transform", function(d) {return "translate(" + d.x + "," + d.y + ")";})                            
+                            .attr("transform", function(d) {return "translate(" + d.x + "," + d.y + ")";})
                             .style("fill", function(d) {
                                 color_scale.range(["white", color_brands(d.max_camera)]);
                                 return color_scale(d.max_photos);
                             })
-                            .style("opacity", 0.8);                    
+                            .style("opacity", 0.8);
 
                         svg.select("text").remove();
-                        svg.append("text")                                                        
+                        svg.append("text")
                             .attr("x", 0)
                             .attr("y", 20)
                             .attr("fill", "#202060")
@@ -713,7 +733,7 @@
                                                     (d3.event.pageX + 10) + "px" :
                                                     (d3.event.pageX - 250 - 10) + "px")
 			                                    .style("top", (d3.event.pageY) + "px");
-			                                    
+
 			                hover_tip.append("img")
 			                    .attr("src", cur_photo.url)
 			                    .attr("class", "img-responsive img-rounded tooltip-image");
@@ -723,12 +743,12 @@
                                     "<br><small><em>(Click to get source and regenerate)</em></small>"
                                     );
 		                    
-		                    var camera_ref = camera_makers.map( function(k) { 
+		                    var camera_ref = camera_makers.map( function(k) {
 		                        var rObj = {};
 		                        rObj["camera"] = k
 		                        rObj["count"] = d.camera_counts[k];
 		                        return rObj;
-		                        });                    
+		                        });
 
                             // Barchart
                             var width_barsvg = 250;
@@ -805,12 +825,13 @@
                                     " (<a href='" + cc_url + "'>CC " +  last_photo.license.toUpperCase() + " 2.0</a>)");
 
                             d.url_index = getRandomIntInclusive(0, d.length-1);
-                            var cur_photo = d[d.url_index];                            
+                            var cur_photo = d[d.url_index];
                             hover_tip.select("img")
                                 .attr("src", cur_photo.url);
                             hover_tip.select("p")
                                 .html(decodeURIComponent(cur_photo.title).slice(0,15) + " by: " + decodeURIComponent(cur_photo.user).slice(0,15) +
                                     "<br><small><em>(Click to get source and regenerate)</em></small>");
+
                         };
 		           	}; //mapviz
 		        }; //ready
@@ -838,8 +859,8 @@
             .scale(color_brands);
 
         map_legend.select(".legendOrdinal")
-            .call(legendOrdinal);       
-        
+            .call(legendOrdinal);
+
         // Saturation Legends
         var color_scale_sat = color_scale
                                 .domain([0, 100])
@@ -865,6 +886,95 @@
         sat_legend.select(".legendSat")
             .call(legendSat);
 
+        // Wordclouds
+        var city_tags = [
+          {"name": "sanfrancisco", "tagfile": "data/sf_tags.csv", "max": 26000},
+          {"name": "newyork", "tagfile": "data/ny_tags.csv", "max": 25000}
+        ];
+
+        d3.selectAll(".cities-tags")
+          .data(city_tags)
+          .append("svg")
+          .attr("width", width)
+          .attr("height", height)
+          .attr("id", function (city) { return city.name; })
+          .each(function (city) {
+            var tags_svg = d3.select(this);
+            var tags_g = tags_svg.append("g").attr("class", "tags");
+            var tags_filter = d3.select(this.parentNode.parentNode)
+              .select(".cities-filter");
+
+            var tags_cats = [
+              {"low":1000, "high":2007, "label":"&mdash;2007"},
+              {"low":2008, "high":2011, "label":"2008&ndash;2011"},
+              {"low":2012, "high":3000, "label":"2012&mdash;"},
+              {"low":1000, "high":3000, "label":"ALL"}
+            ];
+
+            queue()
+              .defer(d3.csv, city.tagfile)
+              .await(tags_ready);
+
+            function tags_ready(error, data) {
+              if (error) throw error;
+
+              tags_filter.append("button")
+                .attr("class", "btn btn-default").attr("type", "button")
+                .on("click", function() { draw_cloud(data, tags_cats[0]); })
+                .html(tags_cats[0].label);
+
+              tags_filter.append("button")
+                .attr("class", "btn btn-default").attr("type", "button")
+                .on("click", function() { draw_cloud(data, tags_cats[1]); })
+                .html(tags_cats[1].label);
+
+              tags_filter.append("button")
+                .attr("class", "btn btn-default").attr("type", "button")
+                .on("click", function() { draw_cloud(data, tags_cats[2]); })
+                .html(tags_cats[2].label);
+
+              tags_filter.append("button")
+                .attr("class", "btn btn-default").attr("type", "button")
+                .on("click", function() { draw_cloud(data, tags_cats[3]); })
+                .html(tags_cats[3].label);
+
+              draw_cloud(data, tags_cats[3]);
+
+              function draw_cloud(data, filter) {
+                d3.layout.cloud()
+                  .size([width, height])
+                  .words(data)
+                  .padding(5)
+                  .on("end", draw)
+                  .start();
+
+                function draw(words) {
+                  var city_div = "#" + city.name;
+                  var fill = d3.scale.category20();
+
+                  tags_svg
+                    .select("g")
+                    .remove();
+
+                  tags_svg
+                    .append("g")
+                    .attr("width", width)
+                    .attr("height", height)
+                    .attr("transform", "translate(300,300)")
+                    .selectAll("text")
+                    .data(data)
+                    .enter().append("text")
+                    .filter(function(d) {return d.count > 750 && d.year >= filter.low && d.year <= filter.high;})
+                    .style("font-size", function(d) { return Math.min(Math.round(d.count*150/city.max), 85) + "px"; })
+                    .style("fill", function(d, i) { return fill(i); })
+                    .attr("text-anchor", "middle")
+                    .attr("transform", function(d) { return "translate(" + [d.x, d.y] + ")rotate(" + ~~(Math.random() * 2) * 90 + ")"; })
+                    .text(function(d) { return d.tag; });
+                }
+              }
+            }
+          }
+        );
     </script>
 </body>
 </html>
