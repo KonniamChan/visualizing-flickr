@@ -484,23 +484,23 @@
 	    		var path = d3.geo.path().projection(projection);
 	    		var svg = d3.select(this);
 
-				// svg.selectAll("g")
-		  //           .data(tiler
-		  //               .scale(projection.scale() * 2 * Math.PI)
-		  //               .translate(projection([0, 0])))
-		  //           .enter().append("g")
-		  //           .each(function(d) {
-		  //               var g = d3.select(this);
-		  //               d3.json("http://vector.mapzen.com/osm/roads/" + d[2] + "/" + d[0] + "/" + d[1] + ".topojson?api_key=vector-tiles-6A2EEiQ",
-		  //               	function(error, json) {
-			 //                    var geojson_data = topojson.feature(json, json.objects.vectile);
-			 //                    g.selectAll("path")
-			 //                        .data(geojson_data.features.sort(function(a, b) { return a.properties.sort_key - b.properties.sort_key; }))
-			 //                        .enter().append("path")
-			 //                        .attr("class", function(d) { return d.properties.kind; })
-			 //                        .attr("d", path);
-		  //               	});
-		  //           });
+				svg.selectAll("g")
+		            .data(tiler
+		                .scale(projection.scale() * 2 * Math.PI)
+		                .translate(projection([0, 0])))
+		            .enter().append("g")
+		            .each(function(d) {
+		                var g = d3.select(this);
+		                d3.json("http://vector.mapzen.com/osm/roads/" + d[2] + "/" + d[0] + "/" + d[1] + ".topojson?api_key=vector-tiles-6A2EEiQ",
+		                	function(error, json) {
+			                    var geojson_data = topojson.feature(json, json.objects.vectile);
+			                    g.selectAll("path")
+			                        .data(geojson_data.features.sort(function(a, b) { return a.properties.sort_key - b.properties.sort_key; }))
+			                        .enter().append("path")
+			                        .attr("class", function(d) { return d.properties.kind; })
+			                        .attr("d", path);
+		                	});
+		            });
 
                 var hex_g = svg.append("g").attr("class", "hexagons");
 		        var filter_selection = d3.select(this.parentNode.parentNode)
