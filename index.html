@@ -190,7 +190,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">Data</h2>
+                    <h1 class="section-heading">Data</h1>
                 </div>
             </div>
             <div class="row text-center">
@@ -200,7 +200,7 @@
                         <i class="fa fa-camera fa-stack-1x fa-inverse"></i>
                     </span>
                     <h4 class="service-heading">About</h4>
-                    <p class="text-muted large"> Yahoo Flickr Creative Commons 100M <a href="http://webscope.sandbox.yahoo.com/catalog.php?datatype=i&did=67">dataset</a>  consists of Flickr photos licensed under Creative Commons, uploaded from 2004-2014. Each record contains the photo's metadata, such as the date, location, and camera model.</p>
+                    <p class="text-muted large"> Yahoo Flickr Creative Commons 100M <a href="http://webscope.sandbox.yahoo.com/catalog.php?datatype=i&did=67">dataset</a>  consists of Flickr photos licensed under Creative Commons, uploaded from 2004-2014 around the world. Each record contains the photo's metadata, such as the date, location, and camera model.</p>
                 </div>
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
@@ -208,7 +208,7 @@
                         <i class="fa fa-tasks fa-stack-1x fa-inverse"></i>
                     </span>
                     <h4 class="service-heading">Visualization Goals</h4>
-                    <p class="text-muted large">Enable both camera-makers and analysts to explore the state and evolution of photo-taking activities. Specifically, the following visualizations show <em>where</em> Flickr users take photos, and with <em>what</em> device, over 2004-2014.</p>
+                    <p class="text-muted large">Enable both camera-makers and analysts to explore the state and evolution of photo-taking activities. Specifically, the following visualizations show <em>where</em> Flickr users take photos, with <em>what</em> device, and the <em>type</em> of photos they take, over 2004-2014.</p>
                 </div>
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
@@ -216,7 +216,7 @@
                         <i class="fa fa-hdd-o fa-stack-1x fa-inverse"></i>
                     </span>
                     <h4 class="service-heading">Size</h4>
-                    <p class="text-muted large"> 100 million photos<br>49 million geotagged<br>12GB compressed<br>27,000 devices</p>
+                    <p class="text-muted large"> 99.3M photos + 0.7M videos<br>49M photos geotagged<br>12GB compressed<br>27,000 devices</p>
                 </div>
             </div>
         </div>
@@ -228,8 +228,8 @@
         <div class="container">
             <div class="row">
                     <div class="col-lg-12 text-center">
-                        <h2 class="section-heading">Market Share</h2>
-                        <p class="text-muted">The following map shows the marketshare of the most popular camera makers in major US cities in each year for which the dataset contains enough data. Flip through the years to see changes over time in each city. The time series plot below shows the marketshare of each popular camera maker in the continental US between 2004 and 2014.</p>
+                        <h1 class="section-heading">Market Share</h1>
+                        <p class="text-muted large">The following map shows the marketshare of the most popular camera makers in major US cities in each year for which the dataset contains enough data. Flip through the years to see changes over time in each city. The time series plot below shows the marketshare of each popular camera maker in the continental US between 2004 and 2014.</p>
                     </div>
             </div>
             <div class='tableauPlaceholder' style='width: 1004px; height: 869px;'>
@@ -254,12 +254,15 @@
 
     <!-- Cities Maps Section -->
     <section id="cities" class="bg-light-gray">
+        <div class="col-lg-12 text-center">
+            <h1 class="section-heading">Cities</h1>
+        </div>
         <div class="container">
             <div class="cities-section">
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <h2 class="section-heading">San Francisco</h2>
-                        <p class="text-muted">The following series of <em>hexbin (hexagonal bin)</em> maps focuses on cities around the world. Each bin contains a number of photos taken at that location. The bin's hue is determined by the majority camera brand, its saturation by the ratio of the current bin's number of photos to the biggest bin's. <strong>Hover</strong> over each bin to preview a random photo from that bin. <strong>Click</strong> again to view the source of that photo at the lower right corner and to generate a new random photo. Regional patterns emerge from these maps. In San Francisco, many photos are taken in downtown, while not very many are taken in residential areas. Canon and Nikon users dominate traditional landscape locations&ndash;Golden Gate Bridge, Marin Headlands, and Ocean Beach, while Apple users are very active in downtown areas. Temporal patterns are equally interesting. <strong>Filter</strong> the time periods using the buttons below, and observe the growth of smartphones over time.</p>
+                        <h2>San Francisco</h2>
+                        <p class="text-muted large">The following series of <em>hexbin (hexagonal bin)</em> maps focuses on cities around the world. A 20% sample of the 100M photos were used. Each bin contains a number of photos taken at that location. The bin's hue is determined by the majority camera brand, its saturation by the ratio of the current bin's number of photos to the biggest bin's. <strong>Hover</strong> over each bin to preview a random photo from that bin. <strong>Click</strong> again to view the source of that photo at the lower right corner and to generate a new random photo. Regional patterns emerge from these maps. In San Francisco, many photos are taken in downtown, while not very many are taken in residential areas. Canon and Nikon users dominate traditional landscape locations&ndash;Golden Gate Bridge, Marin Headlands, and Ocean Beach, while Apple users are very active in downtown areas. Temporal patterns are equally interesting. <strong>Filter</strong> the time periods using the buttons below, and observe the growth of smartphones over time.</p>
                     </div>
                 </div>
                 <div class="btn-group cities-filter" role="group" id="sffilter"></div>
@@ -277,8 +280,8 @@
             <div class="cities-section">
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <h2 class="section-heading">New York</h2>
-                        <p class="text-muted">In New York, observe the clustering of photos around Times Square, gradually fanning out towards the peripheral of Manhattan. There is a substantial bias towards Manhattan, as there are almost no photos present outside of the island beyond the connecting bridges. Post 2012, Apple has carved out substantial territory towards the midtown area, while Canon and Nikon held fast everywhere else.</h3>
+                        <h2>New York</h2>
+                        <p class="text-muted large">In New York, observe the clustering of photos around Times Square, gradually fanning out towards the peripheral of Manhattan. There is a substantial bias towards Manhattan, as there are almost no photos present outside of the island beyond the connecting bridges. Post 2012, Apple has carved out substantial territory towards the midtown area, while Canon and Nikon held fast everywhere else.</h3>
                     </div>
                 </div>
                 <div class="btn-group cities-filter" role="group" id="nyfilter"></div>
@@ -296,8 +299,8 @@
             <div class="cities-section">
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <h2 class="section-heading">Paris</h2>
-                        <p class="text-muted">In Paris, a few hotspots clearly led the pack in terms of photos uploaded. As one might expect, they are the Eiffel Tower, Louvre, Arc de Triomphe, and the Notre Dame. Apple generally is a nonfactor in this city, as the few orange spots originated from the same photographer.</h3>
+                        <h2>Paris</h2>
+                        <p class="text-muted large">In Paris, a few hotspots clearly led the pack in terms of photos uploaded. As one might expect, they are the Eiffel Tower, Louvre, Arc de Triomphe, and the Notre Dame. Apple generally is a nonfactor in this city, as the few orange spots originated from the same photographer.</h3>
                     </div>
                 </div>
                 <div class="btn-group cities-filter" role="group" id="parisfilter"></div>
@@ -315,8 +318,8 @@
             <div class="cities-section">
                 <div class="row">
                     <div class="col-lg-12 text-center">
-                        <h2 class="section-heading">Hong Kong</h2>
-                        <p class="text-muted">In Hong Kong, Flickr usage is more sparse compared to other cities. Most photos are concentrated in the downtown district, where the famous view of Hong Kong skyscrapers is so often photographed. There isn't enough data to detect a strong trend of camera market share changes. </h3>
+                        <h2>Hong Kong</h2>
+                        <p class="text-muted large">In Hong Kong, Flickr usage is more sparse compared to other cities. Most photos are concentrated in the downtown district, where the famous view of Hong Kong skyscrapers is so often photographed. There isn't enough data to detect a strong trend of camera market share changes. </h3>
                     </div>
                 </div>
                 <div class="btn-group cities-filter" role="group" id="hkfilter"></div>
@@ -336,33 +339,33 @@
 
     <!-- Word Cloud Section -->
     <section id="wordcloud">
+        <div class="col-lg-12 text-center">
+            <h1 class="section-heading">Word Cloud</h1>
+        </div>
       <div class="container">
         <div class="cities-tags-section">
           <div class="row">
             <div class="col-lg-12 text-center">
-              <h2 class="section-heading">San Francisco Tags</h2>
-              <p class="text-muted">San Francisco's user photo tags highlight locations (e.g. "market", "street", "golden", "gate", "bridge") as well as the lifestyle ("bar", "park", "protest", "gay"), suggesting that people in this city take pictures of tourist attractions as well as of social events that are culturally associated with San Francisco.</p>
+              <h2>San Francisco Tags</h2>
+              <p class="text-muted large">San Francisco's user photo tags highlight locations (e.g. "market", "street", "golden", "gate", "bridge") as well as the lifestyle ("bar", "park", "protest", "gay"), suggesting that people in this city take pictures of tourist attractions as well as of social events that are culturally associated with San Francisco.</p>
             </div>
           </div>
           <div class="btn-group cities-filter" role="group" id="sffilter"></div>
           <div class="cities-tags"></div>
         </div>
-      </div>
-    </section>
 
-    <section id="wordcloud">
-    <div class="container">
       <div class="cities-tags-section">
         <div class="row">
           <div class="col-lg-12 text-center">
-            <h2 class="section-heading">New York Tags</h2>
-            <p class="text-muted">In New York, photos have tags that mention various boroughs (e.g. "Manhattan", "Brooklyn") as well as the various locations where people visiting the city would tend to take photos (e.g. "art", "museum", "park").</p>
+            <h2>New York Tags</h2>
+            <p class="text-muted large">In New York, photos have tags that mention various boroughs (e.g. "Manhattan", "Brooklyn") as well as the various locations where people visiting the city would tend to take photos (e.g. "art", "museum", "park").</p>
           </div>
         </div>
         <div class="btn-group cities-filter" role="group" id="nyfilter"></div>
         <div class="cities-tags"></div>
       </div>
     </div>
+
     </section>
 
     <!-- Team Section -->
@@ -891,6 +894,7 @@
           {"name": "sanfrancisco", "tagfile": "data/sf_tags.csv", "max": 26000},
           {"name": "newyork", "tagfile": "data/ny_tags.csv", "max": 25000}
         ];
+        var svg_words_height = 500;
 
         d3.selectAll(".cities-tags")
           .data(city_tags)
