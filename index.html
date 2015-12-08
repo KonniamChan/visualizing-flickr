@@ -97,7 +97,31 @@
 
         .legend-des {
             margin-top: 10px;
-        }    
+        }
+
+        .info {
+            position:absolute;
+            bottom:0px;
+            right:0px;
+            background: #f7f7f7;
+            margin: 0;
+            padding: 0px 5px;
+            font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+            font-size: 11px;
+        }
+
+        .info a {
+            text-decoration: none;
+            color: #0078a8;
+        }
+
+        .info a:hover {
+            text-decoration: underline;
+        }
+
+        .cities-maps {
+            position: relative;
+        }
 
     </style>
 
@@ -139,6 +163,9 @@
                     </li>                                        
                     <li>
                         <a class="page-scroll" href="#team">Team</a>
+                    </li>
+                    <li>
+                        <a class="page-scroll" href="#resources">Resources</a>
                     </li>
                 </ul>
             </div>
@@ -383,7 +410,46 @@
         </div>
     </section>
 
-    <footer>
+    <!-- Resources Section -->
+    <section id="resources">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h2 class="section-heading">Resources</h2>
+                </div>
+            </div>
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <h4 class="service-heading">Tools</h4>
+                    <p class="text-muted large">
+                        <a href="http://www.tableau.com/">Tableau</a>
+                        <br><a href="http://d3js.org/">D3.js</a>
+                        
+                        <br><a href="https://mapzen.com/projects/vector-tiles/">Mapzen API</a>
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <h4 class="service-heading">D3 Plugins</h4>
+                    <p class="text-muted large">
+                        <a href="http://d3-legend.susielu.com/">d3 legend</a>
+                        <br><a href="https://github.com/d3/d3-plugins/tree/master/geo">d3 geo</a>
+                        <br><a href="https://github.com/d3/d3-plugins/tree/master/hexbin">d3 hexbin</a>
+                    </p>
+                </div>
+                <div class="col-md-4">
+                    <h4 class="service-heading">Examples & Books</h4>
+                    <p class="text-muted large">
+                        <a href="http://bl.ocks.org/mbostock/5616813">Vector Tiles</a>
+                        <br><a href="http://bl.ocks.org/mbostock/4330486">Bivariate Hexbin Map</a>
+                        <br><a href="http://bl.ocks.org/mbostock/7833311">Dynamic Hexbin</a>
+                        <br><a href="https://www.manning.com/books/d3-js-in-action">D3.js in Action</a>
+                    </p>
+                </div>            
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-light-gray">
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
@@ -578,7 +644,7 @@
 
 			                        if (hex.max_photos > global_max) {
 			                        global_max = hex.max_photos;
-			                        };  
+			                        };
 			                    };
 			                    
 			                };
@@ -624,7 +690,7 @@
                             .attr("y", 20)
                             .attr("fill", "#202060")
                             .html("View: " + filter.label)
-                            .style("opacity", 0.7);
+                            .style("opacity", 0.7);                        
 
 			            // Tooltips
 			            svg.select(".hexagons").selectAll("path")
@@ -749,6 +815,11 @@
 		           	}; //mapviz
 		        }; //ready
 			}); //each
+        
+        // OSM Attribution
+        d3.selectAll(".cities-maps").append("div")
+            .attr("class", "info text-right")
+            .html('© <a href="https://www.openstreetmap.org/copyright" target="_top">OpenStreetMap contributors</a> | <a href="https://mapzen.com/projects/vector-tiles" title="Tiles courtesy of Mapzen" target="_top">Mapzen</a>');
 
         // Map Legends (cameras)
         var map_legend = d3.selectAll(".map-legend")
