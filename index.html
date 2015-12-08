@@ -16,6 +16,7 @@
 
     <!-- Custom CSS -->
     <link href="css/agency.css" rel="stylesheet">
+    <link href="css/flickr_custom.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -29,102 +30,8 @@
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-    <!-- D3 Styles -->
-    <style>
-        path {
-          fill: none;
-          stroke-linejoin: round;
-          stroke-linecap: round;
-        }
-
-        /* Underlying Map */
-        .major_road { stroke: #776; }
-        .minor_road { stroke: #ccb; }
-        .highway { stroke: #776; stroke-width: 1.5px; }
-        .rail { stroke: #776; }
-        .ferry { stroke-dasharray: 5 5; opacity: 0.1; }
-
-        .legendOrdinal { font-size: 12px; }
-        .maptips {
-          position: absolute;
-          z-index: 1060;
-          display: inline;
-          width: 250px;
-          padding: 1px;
-          font-family: "Roboto Slab", "Helvetica Neue", Helvetica, Arial, sans-serif;
-          font-size: 14px;
-          font-style: normal;
-          font-weight: normal;
-          line-height: 1.42857143;
-          text-align: left;
-          text-align: start;
-          text-decoration: none;
-          text-shadow: none;
-          text-transform: none;
-          letter-spacing: normal;
-          word-break: normal;
-          word-spacing: normal;
-          word-wrap: normal;
-          white-space: normal;
-          background-color: #fff;
-          -webkit-background-clip: padding-box;
-                  background-clip: padding-box;
-          border: 1px solid #ccc;
-          border: 1px solid rgba(0, 0, 0, .2);
-          border-radius: 6px;
-          -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-                  box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
-          line-break: auto;
-        }
-        .tooltip-image {
-            max-width: 100%;
-            max-height: 300px;
-        }
-
-        .tight-p {
-            line-height: 1.2;            
-        }
-
-        .no-margin-bottom {
-            margin-bottom: 0;
-        }
-
-        .legends {
-            margin-bottom: 100px;
-        }
-
-        .legend-des {
-            margin-top: 10px;
-        }
-
-        .info {
-            position:absolute;
-            bottom:0px;
-            right:0px;
-            background: #f7f7f7;
-            margin: 0;
-            padding: 0px 5px;
-            font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
-            font-size: 11px;
-        }
-
-        .info a {
-            text-decoration: none;
-            color: #0078a8;
-        }
-
-        .info a:hover {
-            text-decoration: underline;
-        }
-
-        .cities-maps {
-            position: relative;
-        }
-
-    </style>
-
+    <![endif]-->    
+    
 </head>
 
 <body id="page-top" class="index">
@@ -208,7 +115,7 @@
                         <i class="fa fa-tasks fa-stack-1x fa-inverse"></i>
                     </span>
                     <h4 class="service-heading">Visualization Goals</h4>
-                    <p class="text-muted large">Enable both camera-makers and analysts to explore the state and evolution of photo-taking activities. Specifically, the following visualizations show <em>where</em> Flickr users take photos, with <em>what</em> device, and the <em>type</em> of photos they take, over 2004-2014.</p>
+                    <p class="text-muted large">Enable camera-makers and analysts to explore the state and evolution of photo-taking activities. Specifically, the following visualizations show <em>where</em> Flickr users take photos, with <em>what</em> device, and the <em>type</em> of photos they take, over 2004-2014.</p>
                 </div>
                 <div class="col-md-4">
                     <span class="fa-stack fa-4x">
@@ -253,16 +160,17 @@
     </section>
 
     <!-- Cities Maps Section -->
-    <section id="cities" class="bg-light-gray">
-        <div class="col-lg-12 text-center">
-            <h1 class="section-heading">Cities</h1>
-        </div>
+    <section id="cities" class="bg-light-gray">        
         <div class="container">
+            <div class="col-lg-12 text-center">
+                <h1 class="section-heading">Cities</h1>
+                <p class="text-muted large">The following series of <em>hexbin (hexagonal bin)</em> maps focuses on cities around the world. A 20% sample of the 100M photos were used. Each bin contains a number of photos taken at that location. The bin's hue is determined by the majority camera brand, its saturation by the ratio of the current bin's number of photos to the biggest bin's. <strong>Hover</strong> over each bin to preview a random photo from that bin. <strong>Click</strong> again to view the source of that photo at the lower right corner and to generate a new random photo. <strong>Filter</strong> the time periods using top left buttons.</p> 
+            </div>
             <div class="cities-section">
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <h2>San Francisco</h2>
-                        <p class="text-muted large">The following series of <em>hexbin (hexagonal bin)</em> maps focuses on cities around the world. A 20% sample of the 100M photos were used. Each bin contains a number of photos taken at that location. The bin's hue is determined by the majority camera brand, its saturation by the ratio of the current bin's number of photos to the biggest bin's. <strong>Hover</strong> over each bin to preview a random photo from that bin. <strong>Click</strong> again to view the source of that photo at the lower right corner and to generate a new random photo. Regional patterns emerge from these maps. In San Francisco, many photos are taken in downtown, while not very many are taken in residential areas. Canon and Nikon users dominate traditional landscape locations&ndash;Golden Gate Bridge, Marin Headlands, and Ocean Beach, while Apple users are very active in downtown areas. Temporal patterns are equally interesting. <strong>Filter</strong> the time periods using the buttons below, and observe the growth of smartphones over time.</p>
+                        <p class="text-muted large">In San Francisco, many photos are taken in downtown, while not very many are taken in residential areas. Canon and Nikon users dominate traditional landscape locations&ndash;Golden Gate Bridge, Marin Headlands, and Ocean Beach, while Apple users are very active in downtown areas. Temporal patterns are equally interesting. Observe the growth of smartphones over time using the filter buttons.</p>
                     </div>
                 </div>
                 <div class="btn-group cities-filter" role="group" id="sffilter"></div>
@@ -281,7 +189,7 @@
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <h2>New York</h2>
-                        <p class="text-muted large">In New York, observe the clustering of photos around Times Square, gradually fanning out towards the peripheral of Manhattan. There is a substantial bias towards Manhattan, as there are almost no photos present outside of the island beyond the connecting bridges. Post 2012, Apple has carved out substantial territory towards the midtown area, while Canon and Nikon held fast everywhere else.</h3>
+                        <p class="text-muted large">In New York, photos cluster around Times Square, gradually fanning out towards the peripheral of Manhattan. There is a substantial bias towards Manhattan, as there are almost no photos outside of the island. Post 2012, Apple has carved out substantial territory towards the midtown area, while Canon and Nikon held fast everywhere else.</h3>
                     </div>
                 </div>
                 <div class="btn-group cities-filter" role="group" id="nyfilter"></div>
@@ -319,7 +227,7 @@
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <h2>Hong Kong</h2>
-                        <p class="text-muted large">In Hong Kong, Flickr usage is more sparse compared to other cities. Most photos are concentrated in the downtown district, where the famous view of Hong Kong skyscrapers is so often photographed. There isn't enough data to detect a strong trend of camera market share changes. </h3>
+                        <p class="text-muted large">In Hong Kong, Flickr usage is more sparse compared to other cities. Most photos are concentrated in the downtown district, where the famous view of Hong Kong skyscrapers is so often photographed. </h3>
                     </div>
                 </div>
                 <div class="btn-group cities-filter" role="group" id="hkfilter"></div>
@@ -576,23 +484,23 @@
 	    		var path = d3.geo.path().projection(projection);
 	    		var svg = d3.select(this);
 
-				svg.selectAll("g")
-		            .data(tiler
-		                .scale(projection.scale() * 2 * Math.PI)
-		                .translate(projection([0, 0])))
-		            .enter().append("g")
-		            .each(function(d) {
-		                var g = d3.select(this);
-		                d3.json("http://vector.mapzen.com/osm/roads/" + d[2] + "/" + d[0] + "/" + d[1] + ".topojson?api_key=vector-tiles-6A2EEiQ",
-		                	function(error, json) {
-			                    var geojson_data = topojson.feature(json, json.objects.vectile);
-			                    g.selectAll("path")
-			                        .data(geojson_data.features.sort(function(a, b) { return a.properties.sort_key - b.properties.sort_key; }))
-			                        .enter().append("path")
-			                        .attr("class", function(d) { return d.properties.kind; })
-			                        .attr("d", path);
-		                	});
-		            });
+				// svg.selectAll("g")
+		  //           .data(tiler
+		  //               .scale(projection.scale() * 2 * Math.PI)
+		  //               .translate(projection([0, 0])))
+		  //           .enter().append("g")
+		  //           .each(function(d) {
+		  //               var g = d3.select(this);
+		  //               d3.json("http://vector.mapzen.com/osm/roads/" + d[2] + "/" + d[0] + "/" + d[1] + ".topojson?api_key=vector-tiles-6A2EEiQ",
+		  //               	function(error, json) {
+			 //                    var geojson_data = topojson.feature(json, json.objects.vectile);
+			 //                    g.selectAll("path")
+			 //                        .data(geojson_data.features.sort(function(a, b) { return a.properties.sort_key - b.properties.sort_key; }))
+			 //                        .enter().append("path")
+			 //                        .attr("class", function(d) { return d.properties.kind; })
+			 //                        .attr("d", path);
+		  //               	});
+		  //           });
 
                 var hex_g = svg.append("g").attr("class", "hexagons");
 		        var filter_selection = d3.select(this.parentNode.parentNode)

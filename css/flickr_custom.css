@@ -1,0 +1,89 @@
+/* Custom CSS */
+path {
+  fill: none;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.major_road { stroke: #776; }
+.minor_road { stroke: #ccb; }
+.highway { stroke: #776; stroke-width: 1.5px; }
+.rail { stroke: #776; }
+.ferry { stroke-dasharray: 5 5; opacity: 0.1; }
+
+.legendOrdinal { font-size: 12px; }
+.maptips {
+  position: absolute;
+  z-index: 1060;
+  display: inline;
+  width: 250px;
+  padding: 1px;
+  font-family: "Roboto Slab", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: left;
+  text-align: start;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  letter-spacing: normal;
+  word-break: normal;
+  word-spacing: normal;
+  word-wrap: normal;
+  white-space: normal;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+          background-clip: padding-box;
+  border: 1px solid #ccc;
+  border: 1px solid rgba(0, 0, 0, .2);
+  border-radius: 6px;
+  -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+          box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+  line-break: auto;
+}
+.tooltip-image {
+    max-width: 100%;
+    max-height: 300px;
+}
+
+.tight-p {
+    line-height: 1.2;            
+}
+
+.no-margin-bottom {
+    margin-bottom: 0;
+}
+
+.legends {
+    margin-bottom: 100px;
+}
+
+.legend-des {
+    margin-top: 10px;
+}
+
+.info {
+    position:absolute;
+    bottom:0px;
+    right:0px;
+    background: #f7f7f7;
+    margin: 0;
+    padding: 0px 5px;
+    font: 12px/1.5 "Helvetica Neue", Arial, Helvetica, sans-serif;
+    font-size: 11px;
+}
+
+.info a {
+    text-decoration: none;
+    color: #0078a8;
+}
+
+.info a:hover {
+    text-decoration: underline;
+}
+
+.cities-maps {
+    position: relative;
+}
