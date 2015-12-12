@@ -173,7 +173,12 @@
                         <p class="text-muted large">In San Francisco, many photos are taken in downtown, while not very many are taken in residential areas. Canon and Nikon users dominate traditional landscape locations&ndash;Golden Gate Bridge, Marin Headlands, and Ocean Beach, while Apple users are very active in downtown areas. Temporal patterns are equally interesting. Observe the growth of smartphones over time using the filter buttons.</p>
                     </div>
                 </div>
-                <div class="btn-group cities-filter" role="group" id="sffilter"></div>
+                
+                <div class="row above-map">
+                    <div class="btn-group cities-filter col-md-6" role="group"></div>
+                    <div class="col-md-6 neighborhood-hover"></div>
+                </div>
+
             	<div class="cities-maps"></div>
                 <div class="row legends">
                     <div class="map-legend col-md-4"></div>
@@ -192,7 +197,10 @@
                         <p class="text-muted large">In New York, photos cluster around Times Square, gradually fanning out towards the peripheral of Manhattan. There is a substantial bias towards Manhattan, as there are almost no photos outside of the island. Post 2012, Apple has carved out substantial territory towards the midtown area, while Canon and Nikon held fast everywhere else.</h3>
                     </div>
                 </div>
-                <div class="btn-group cities-filter" role="group" id="nyfilter"></div>
+                <div class="row above-map">
+                    <div class="btn-group cities-filter col-md-6" role="group"></div>
+                    <div class="col-md-6 neighborhood-hover"></div>
+                </div>
                 <div class="cities-maps"></div>
                 <div class="row legends">
                     <div class="map-legend col-md-4"></div>
@@ -211,7 +219,10 @@
                         <p class="text-muted large">In Paris, a few hotspots clearly led the pack in terms of photos uploaded. As one might expect, they are the Eiffel Tower, Louvre, Arc de Triomphe, and the Notre Dame. Apple generally is a nonfactor in this city, as the few orange spots originated from the same photographer.</h3>
                     </div>
                 </div>
-                <div class="btn-group cities-filter" role="group" id="parisfilter"></div>
+                <div class="row above-map">
+                    <div class="btn-group cities-filter col-md-6" role="group"></div>
+                    <div class="col-md-6 neighborhood-hover"></div>
+                </div>
                 <div class="cities-maps"></div>
                 <div class="row legends">
                     <div class="map-legend col-md-4"></div>
@@ -230,7 +241,10 @@
                         <p class="text-muted large">In Hong Kong, Flickr usage is more sparse compared to other cities. Most photos are concentrated in the downtown district, where the famous view of Hong Kong skyscrapers is so often photographed. </h3>
                     </div>
                 </div>
-                <div class="btn-group cities-filter" role="group" id="hkfilter"></div>
+                <div class="row above-map">
+                    <div class="btn-group cities-filter col-md-6" role="group"></div>
+                    <div class="col-md-6 neighborhood-hover"></div>
+                </div>
                 <div class="cities-maps"></div>
                 <div class="row legends">
                     <div class="map-legend col-md-4"></div>
@@ -482,11 +496,12 @@
 	    		var path = d3.geo.path().projection(projection);
 	    		var svg = d3.select(this);
 
-				svg.selectAll("g")
+				svg.selectAll("g.roads")
 		            .data(tiler
 		                .scale(projection.scale() * 2 * Math.PI)
 		                .translate(projection([0, 0])))
 		            .enter().append("g")
+		            .attr("class", "roads")
 		            .each(function(d) {
 		                var g = d3.select(this);
 		                d3.json("http://vector.mapzen.com/osm/roads/" + d[2] + "/" + d[0] + "/" + d[1] + ".topojson?api_key=vector-tiles-6A2EEiQ",
@@ -498,11 +513,11 @@
 			                        .attr("class", function(d) { return d.properties.kind; })
 			                        .attr("d", path);
 		                	});
-		            });
+		            });		        
 
                 var hex_g = svg.append("g").attr("class", "hexagons");
 		        var filter_selection = d3.select(this.parentNode.parentNode)
-		        	.select(".cities-filter");
+                    .select(".above-map").select(".cities-filter");
 
 
 		        // Hexbins
@@ -613,13 +628,14 @@
                             })
                             .style("opacity", 0.8);
 
-                        svg.select("text").remove();
+                        svg.select(".view-indicator").remove();
                         svg.append("text")
+                            .attr("class", "view-indicator")
                             .attr("x", 0)
                             .attr("y", 20)
                             .attr("fill", "#202060")
                             .html("View: " + filter.label)
-                            .style("opacity", 0.7);                        
+                            .style("opacity", 0.7);
 
 			            // Tooltips
 			            svg.select(".hexagons").selectAll("path")
@@ -744,6 +760,39 @@
                         };
 		           	}; //mapviz
 		        }; //ready
+
+                svg.selectAll("g.places")
+                    .data(tiler
+                        .scale(projection.scale() * 2 * Math.PI)
+                        .translate(projection([0, 0])))
+                    .enter().append("g")
+                    .attr("class", "places")
+                    .each(function(d) {
+                        var g = d3.select(this);                
+                        d3.json("http://vector.mapzen.com/osm/places/" + d[2] + "/" + d[0] + "/" + d[1] + ".topojson?api_key=vector-tiles-6A2EEiQ", function(error, json) {
+                            var geojson_data = topojson.feature(json, json.objects.vectile);                            
+                            g.selectAll("text")
+                                .data(geojson_data.features)
+                                .enter().append("text")
+                                .attr("class", function (e) { return (parseInt(e.properties.kind_tile_rank)<=3 || e.properties.kind=="city")
+                                    ? e.properties.kind : "exclude"; })
+                                .attr("x", function (e) { return projection(e.geometry.coordinates)[0]; })
+                                .attr("y", function (e) { return projection(e.geometry.coordinates)[1]; })
+                                .attr("text-anchor", "middle")                                
+                                .text(function (e) { return e.properties.name; });
+                        });
+                    });                
+                svg.selectAll("g.places").attr("display", "none");
+                
+                var neighbor_selection = d3.select(this.parentNode.parentNode)
+                    .select(".above-map").select(".neighborhood-hover");
+
+                neighbor_selection.append("button")
+                    .attr("class", "btn btn-default btn-neighborhood").attr("type", "button")
+                    .on("mouseover", function() { svg.selectAll("g.places").attr("display", null); } )
+                    .on("mouseout", function() { svg.selectAll("g.places").attr("display", "none"); } )
+                    .html("Hover for Neighborhoods");
+
 			}); //each
         
         // OSM Attribution

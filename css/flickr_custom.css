@@ -5,10 +5,10 @@ path {
   stroke-linecap: round;
 }
 
-.major_road { stroke: #776; }
-.minor_road { stroke: #ccb; }
-.highway { stroke: #776; stroke-width: 1.5px; }
-.rail { stroke: #776; }
+.major_road { stroke: #808080; }
+.minor_road { stroke: #cccccc; }
+.highway { stroke: #808080; stroke-width: 1.5px; }
+.rail { stroke: #808080; }
 .ferry { stroke-dasharray: 5 5; opacity: 0.1; }
 
 .legendOrdinal { font-size: 12px; }
@@ -86,4 +86,31 @@ path {
 
 .cities-maps {
     position: relative;
+}
+
+.city {
+    font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 30px;
+    fill: #595959;
+    text-transform: uppercase;    
+}
+
+.neighbourhood, .suburb {
+    font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 10px;
+    fill: #808080;
+    text-transform: uppercase;
+}
+
+.exclude {
+    display: none;
+}
+
+.neighborhood-hover {
+  position: relative;
+}
+
+.btn-neighborhood {
+  position: absolute;
+  right: 0px;
 }
