@@ -164,13 +164,13 @@
         <div class="container">
             <div class="col-lg-12 text-center">
                 <h1 class="section-heading">Cities</h1>
-                <p class="text-muted large">The following series of <em>hexbin (hexagonal bin)</em> maps focuses on cities around the world. A 20% sample of the 100M photos were used. Each bin contains a number of photos taken at that location. The bin's hue is determined by the majority camera brand, its saturation by the ratio of the current bin's number of photos to the biggest bin's. <strong>Hover</strong> over each bin to preview a random photo from that bin. <strong>Click</strong> again to view the source of that photo at the lower right corner and to generate a new random photo. <strong>Filter</strong> the time periods using top left buttons.</p>
+                <p class="text-muted large">The following series of <em>hexbin (hexagonal bin)</em> maps focuses on cities around the world. A 20% sample of the 100M photos were used. Each bin contains a number of photos taken at that location. The bin's hue corresponds to the majority camera brand, its saturation to the ratio of the current bin's number of photos to the biggest bin's. <strong>Hover</strong> over each bin to preview a random photo from that bin. <strong>Click</strong> again to view the source of that photo at the lower right corner and to generate a new random photo. <strong>Filter</strong> the time periods using top left buttons. <strong>Hover</strong> over the top right corner link to see an overlay of neighborhoods. </p>
             </div>
             <div class="cities-section">
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <h2>San Francisco</h2>
-                        <p class="text-muted large">In San Francisco, many photos are taken in downtown, while not very many are taken in residential areas. Canon and Nikon users dominate traditional landscape locations&ndash;Golden Gate Bridge, Marin Headlands, and Ocean Beach, while Apple users are very active in downtown areas. Temporal patterns are equally interesting. Observe the growth of smartphones over time using the filter buttons.</p>
+                        <p class="text-muted large">In San Francisco, many photos were taken in downtown (Financial District and Civic Center on the overlay), while not very many were taken in residential areas. Canon and Nikon users dominated traditional landscape locations&ndash;Golden Gate Bridge, Marin Headlands, and Ocean Beach, while Apple users were very active in downtown areas. Observe the growth of smartphones over time using the filter buttons.</p>
                     </div>
                 </div>
 
@@ -194,7 +194,7 @@
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <h2>New York</h2>
-                        <p class="text-muted large">In New York, photos cluster around Times Square, gradually fanning out towards the peripheral of Manhattan. There is a substantial bias towards Manhattan, as there are almost no photos outside of the island. Post 2012, Apple has carved out substantial territory towards the midtown area, while Canon and Nikon held fast everywhere else.</h3>
+                        <p class="text-muted large">In New York, photos clustered around Times Square, gradually fanning out towards the peripheral of Manhattan. There is a substantial bias towards Manhattan, as there were not many photos taken outside of it. Post 2012, Apple has carved out substantial territory towards the midtown area (between Theatre District and East Village), while Canon and Nikon have held fast everywhere else.</h3>
                     </div>
                 </div>
                 <div class="row above-map">
@@ -216,7 +216,7 @@
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <h2>Paris</h2>
-                        <p class="text-muted large">In Paris, a few hotspots clearly led the pack in terms of photos uploaded. As one might expect, they are the Eiffel Tower, Louvre, Arc de Triomphe, and the Notre Dame. Apple generally is a nonfactor in this city, as the few orange spots originated from the same photographer.</h3>
+                        <p class="text-muted large">In Paris, a few hotspots clearly led the pack in terms of photos uploaded. As one might expect, they are the Eiffel Tower, Louvre, Arc de Triomphe, and the Notre Dame. Similar to New York, activity dissipates rapidly towards the edge of the city center. Apple generally was a nonfactor in this city, as the few orange spots originated from the same photographer.</h3>
                     </div>
                 </div>
                 <div class="row above-map">
@@ -238,7 +238,7 @@
                 <div class="row">
                     <div class="col-lg-12 text-center">
                         <h2>Hong Kong</h2>
-                        <p class="text-muted large">In Hong Kong, Flickr usage is more sparse compared to other cities. Most photos are concentrated in the downtown district, where the famous view of Hong Kong skyscrapers is so often photographed. </h3>
+                        <p class="text-muted large">Hong Kong's Flickr usage is much more sparse compared to other cities. Most photos were taken on the two opposite ends of the Victoria Harbour (in the middle of the map), where the famous view of Hong Kong skyscrapers is so often photographed. </h3>
                     </div>
                 </div>
                 <div class="row above-map">
@@ -788,10 +788,10 @@
                     .select(".above-map").select(".neighborhood-hover");
 
                 neighbor_selection.append("button")
-                    .attr("class", "btn btn-default btn-neighborhood").attr("type", "button")
+                    .attr("class", "btn btn-link btn-neighborhood").attr("type", "button")
                     .on("mouseover", function() { svg.selectAll("g.places").attr("display", null); } )
                     .on("mouseout", function() { svg.selectAll("g.places").attr("display", "none"); } )
-                    .html("Hover for Neighborhoods");
+                    .html("Neighborhoods (<em>Hover Here</em>)");
 
 			}); //each
 
