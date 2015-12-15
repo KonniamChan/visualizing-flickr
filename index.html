@@ -746,7 +746,7 @@
 
                             d3.select(this.parentNode.parentNode.parentNode.parentNode)
                                 .select(".legend-des").select(".attribution")
-                                .html("<a href='" + page + "'>Last Photo</a> By: " + decodeURIComponent(last_photo.user).slice(0,15) +
+                                .html("<a href='" + page + "'>Last Photo</a> by: " + decodeURIComponent(last_photo.user).slice(0,15) +
                                     " (<a href='" + cc_url + "'>CC " +  last_photo.license.toUpperCase() + " 2.0</a>)");
 
                             d.url_index = getRandomIntInclusive(0, d.length-1);
