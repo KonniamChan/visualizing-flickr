@@ -664,7 +664,7 @@
 			                    .attr("class", "img-responsive img-rounded tooltip-image");
 			                hover_tip.append("p")
                                 .attr("class", "tight-p")
-			                    .html(decodeURIComponent(cur_photo.title).slice(0,15) + " by: " + decodeURIComponent(cur_photo.user).slice(0,15) +
+			                    .html(decodeURIComponent(cur_photo.title).slice(0,15) + " by " + decodeURIComponent(cur_photo.user).slice(0,15) +
                                     "<br><small><em>(Click to get source and regenerate)</em></small>"
                                     );
 
@@ -746,7 +746,7 @@
 
                             d3.select(this.parentNode.parentNode.parentNode.parentNode)
                                 .select(".legend-des").select(".attribution")
-                                .html("<a href='" + page + "'>Last Photo</a> by: " + decodeURIComponent(last_photo.user).slice(0,15) +
+                                .html("<a href='" + page + "'>Last Photo</a> by " + decodeURIComponent(last_photo.user).slice(0,15) +
                                     " (<a href='" + cc_url + "'>CC " +  last_photo.license.toUpperCase() + " 2.0</a>)");
 
                             d.url_index = getRandomIntInclusive(0, d.length-1);
@@ -754,7 +754,7 @@
                             hover_tip.select("img")
                                 .attr("src", cur_photo.url);
                             hover_tip.select("p")
-                                .html(decodeURIComponent(cur_photo.title).slice(0,15) + " by: " + decodeURIComponent(cur_photo.user).slice(0,15) +
+                                .html(decodeURIComponent(cur_photo.title).slice(0,15) + " by " + decodeURIComponent(cur_photo.user).slice(0,15) +
                                     "<br><small><em>(Click to get source and regenerate)</em></small>");
 
                         };
